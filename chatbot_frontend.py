@@ -7,7 +7,7 @@ import uuid
 
 def generate_id():
    thread_id = uuid.uuid4()
-   return thread_id
+   return str(thread_id)
 
 
 def add_thread(thread_id):
@@ -19,12 +19,17 @@ def reset_chat():
     st.session_state['thread_id'] = thread_id
     add_thread(st.session_state['thread_id'])
     st.session_state['message_history'] = []
+
+def load_messages(thread_id):
+    st.session_state['thread_id'] = thread_id
+    res = chatbot.get_state(config= {'configurable': {'thread_id': thread_id}}).values['messages']
+    return res
     
  #******************************State management**********************#
  
 
 # session state does not reset when we press the enter button
-
+ 
 if 'message_history' not in st.session_state:
     st.session_state['message_history'] = []
     
@@ -53,8 +58,18 @@ if st.sidebar.button('New chat'):
 st.sidebar.header('My conversations')
 
 
-for thread in st.session_state['thread_history']:
-    st.sidebar.text(thread)
+for thread_id in st.session_state['thread_history'][::-1]:
+    if st.sidebar.button(str(thread_id)):
+        st.session_state['thread_id'] = thread_id
+        messages = load_messages(thread_id)
+        temp_messages = []
+        for message in messages:
+            if isinstance(message, HumanMessage):
+                temp_messages.append({'role': 'user','content': message.content})
+            else:
+                temp_messages.append({'role':'assistant','content':message.content})
+        
+        st.session_state['message_history'] = temp_messages      
     
     
 #****************************** Conversation history****************#

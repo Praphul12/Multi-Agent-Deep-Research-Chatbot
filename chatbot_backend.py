@@ -29,7 +29,7 @@ checkpoint = InMemorySaver()
 def chat_node(state: chatState):
     msg = state['messages']
     response = model.invoke(msg)
-    return {'messages': [response.content]}
+    return {'messages': [response]}
 
 # %%
 graph = StateGraph(chatState)
@@ -39,5 +39,10 @@ graph.add_edge('chatNode',END)
 
 chatbot = graph.compile(checkpointer= checkpoint)
 
+# CONFIG=  {"configurable": {'thread_id': 'thread1'}} 
+# result = chatbot.invoke({'messages':'hi there'},config= CONFIG)
+# res = chatbot.get_state(config={'configurable':{'thread_id': 'thread1'}})
+
+# print(res.values['messages'])
 
 
