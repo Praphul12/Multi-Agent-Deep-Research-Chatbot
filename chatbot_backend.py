@@ -3,7 +3,8 @@ from langgraph.graph import StateGraph, START,END
 from langgraph.graph.message import add_messages
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from dotenv import load_dotenv
-from langgraph.checkpoint.memory import InMemorySaver
+import sqlite3
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langchain_core.messages import BaseMessage
 from typing import TypedDict,Annotated
 
@@ -23,7 +24,8 @@ class chatState(TypedDict):
     messages: Annotated[list[BaseMessage],add_messages]
 
 # %%
-checkpoint = InMemorySaver()
+conn = sqlite3.connect('checkpoint.db',check_same_thread= False)
+checkpoint = SqliteSaver(conn)
 
 # %%
 def chat_node(state: chatState):
@@ -40,9 +42,14 @@ graph.add_edge('chatNode',END)
 chatbot = graph.compile(checkpointer= checkpoint)
 
 # CONFIG=  {"configurable": {'thread_id': 'thread1'}} 
-# result = chatbot.invoke({'messages':'hi there'},config= CONFIG)
+# result = chatbot.invoke({'messages':'My name is praphul. I am 27 years old'},config= CONFIG)
 # res = chatbot.get_state(config={'configurable':{'thread_id': 'thread1'}})
 
-# print(res.values['messages'])
+checkpoin ters = checkpoint.list(None)
 
+def get_unique_threads():
+    checkpoints = set()
+    for checkpoint in checkpointers:
+        checkpoints.add(checkpoint.config['configurable']['thread_id'])
 
+    return list(checkpoints)

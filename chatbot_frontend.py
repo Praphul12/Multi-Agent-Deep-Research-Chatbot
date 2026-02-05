@@ -1,5 +1,5 @@
 import streamlit as st
-from chatbot_backend import chatbot
+from chatbot_backend import chatbot,get_unique_threads
 from langchain_core.messages import HumanMessage
 import uuid
 
@@ -24,6 +24,8 @@ def load_messages(thread_id):
     st.session_state['thread_id'] = thread_id
     res = chatbot.get_state(config= {'configurable': {'thread_id': thread_id}}).values['messages']
     return res
+
+
     
  #******************************State management**********************#
  
@@ -35,7 +37,7 @@ if 'message_history' not in st.session_state:
     
 
 if 'thread_history' not in st.session_state:
-    st.session_state['thread_history'] = []
+    st.session_state['thread_history'] = get_unique_threads()
     
 if 'thread_id' not in st.session_state:
     st.session_state['thread_id'] = generate_id()
