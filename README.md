@@ -17,6 +17,7 @@ A unified platform with two operational modes:
 - Stock price queries through Alpha Vantage API
 - Built-in calculator for arithmetic operations
 - Persistent conversation threads with SQLite
+- Human in the loop for **Explicit approval requirement** before tool execution
 
 **📝 Research Mode** - Autonomous research agent:
 - Intelligent routing (closed-book, hybrid, open-book strategies)
@@ -76,6 +77,8 @@ User Input → LLM → Tool Decision → Tool Execution → Response
 - **Parallel Processing** - Concurrent section generation for research blogs
 - **Tool Use** - Dynamic function calling with LangChain tool binding
 - **State Management** - Persistent conversation threads and research outputs
+- **Human-in-the-Loop Guardrails** — Approval-based execution for high-risk actions
+
 
 ### Production-Ready
 - **Scalable Backend** - Independent graph compilation for chat and research
@@ -198,4 +201,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Built with ❤️ using LangGraph and Streamlit
+Built with LangGraph to demonstrate production-grade agent orchestration, safety guardrails, and deterministic workflows.
