@@ -195,10 +195,6 @@ multi-agent-assistant/
 
 This project is licensed under the MIT License.
 
-## Contact
-
-**GitHub**: [@yourusername](https://github.com/yourusername)
-
 ---
 
 Built with LangGraph to demonstrate production-grade agent orchestration, safety guardrails, and deterministic workflows.
