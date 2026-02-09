@@ -1,2 +1,91 @@
 .env
 uv.lock
+
+# Python
+
+**pycache**/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments (uv, venv, etc.)
+
+.venv/
+venv/
+env/
+ENV/
+
+# uv specific
+
+uv.lock
+
+# Environment Variables
+
+.env
+.env.*
+!.env.example
+
+# Streamlit
+
+.streamlit/secrets.toml
+
+# Logs
+
+*.log
+logs/
+
+# OS Files
+
+.DS_Store
+Thumbs.db
+
+# IDE / Editors
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing / Coverage
+
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build / Distribution
+
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# Generated Images (from blog agent)
+
+images/
+
+# Generated Markdown / Artifacts
+
+*.md
+!README.md
+
+# Temporary files
+
+tmp/
+temp/
+
+# LangChain / LangGraph tracing artifacts (if stored locally)
+
+.langchain/
+langgraph.db
+*.sqlite
+
+# Node (only if you ever add frontend tooling)
+
+node_modules/
